@@ -1,5 +1,18 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+}
+
+.form-container {
+  max-width: 30vw;
+  background-color: #dfeaffb1;
+  border: 2px solid #a4b4c292;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 10vh auto;
+}
+
+.padding-down {
+  padding-bottom: 16px;;
 }
 
 .App-logo {
