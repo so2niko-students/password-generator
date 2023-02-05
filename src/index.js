@@ -5,7 +5,7 @@ import './index.css';
 import App from './components/App/App';
 import Test from './components/Test/Test';
 import RegisterForm from './components/App/RegisterForm';
-import PasswordGenerator from './components/App/PasswordGeneration';
+
 
 import {
   createBrowserRouter,
