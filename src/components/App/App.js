@@ -1,15 +1,12 @@
-import "./App.css";
-import { Button, Stack } from "react-bootstrap";
-import Login from "./Login"
+import './App.css';
 
 
 function App() {
-  return <div className="App">
-    
-
-    <Login />
-  
-  </div>;
+	return (
+		<div className="App">
+			App element
+		</div>
+	);
 }
 
 export default App;
