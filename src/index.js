@@ -5,6 +5,7 @@ import './index.css';
 import App from './components/App/App';
 import Test from './components/Test/Test';
 import RegisterForm from './components/App/RegisterForm';
+import PasswordGenerator from './components/App/PasswordGeneration';
 
 import {
   createBrowserRouter,
@@ -12,6 +13,7 @@ import {
   RouterProvider
 } from 'react-router-dom';
 import PasswordsTable from './components/App/PasswordsTable';
+import PasswordGenerator from './components/App/PasswordGeneration';
 
 const router = createBrowserRouter([
   {
@@ -38,13 +40,21 @@ const router = createBrowserRouter([
       </div>
     ),
   },
-    {
+  {
     path: "/register",
     element: (
       <div>
         <RegisterForm/>
       </div>
-    ),
+  ),
+  },
+  {
+    path: "/newpassword",
+    element: (
+      <div>
+        <PasswordGenerator/>
+      </div>
+  ),  
   },
 ]);
 
