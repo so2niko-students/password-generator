@@ -10,13 +10,14 @@ import {
   Link,
   RouterProvider
 } from 'react-router-dom';
+import PasswordsTable from './components/App/PasswordsTable';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <div>
-        'Home element'
+        <Test/>
       </div>
     ),
   },
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
     path: "/test",
     element: (
       <div>
-        <Test/>
+        <PasswordsTable/>
       </div>
     ),
   },
