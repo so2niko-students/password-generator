@@ -4,6 +4,8 @@
 
 .inputError {
   color: red;
+  font-weight: 600;
+  padding-bottom: 16px;;
 }
 
 .form-container {
@@ -17,6 +19,10 @@
 
 .padding-down {
   padding-bottom: 16px;;
+}
+
+.link-primary {
+  cursor: pointer;
 }
 
 .App-logo {
