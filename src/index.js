@@ -56,6 +56,14 @@ const router = createBrowserRouter([
       </div>
   ),  
   },
+  {
+    path: "/passwords-table",
+    element: (
+      <div>
+        <PasswordsTable/>
+      </div>
+    ),
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
