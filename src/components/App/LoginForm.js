@@ -46,7 +46,7 @@ function LoginForm({Login, error}) {
  
    useEffect(() => {
      if (localStorage.getItem("user-info")) {
-       navigate("/add")
+       navigate("/passwords-table")
      }
    })
 
@@ -70,7 +70,7 @@ function LoginForm({Login, error}) {
       });
       result = await result.json();
       localStorage.setItem("user-info", JSON.stringify(result))
-      navigate("/add");
+      navigate("/passwords-table");
 
   //  LoginInfo(details);
     }
