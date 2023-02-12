@@ -46,7 +46,8 @@ function LoginForm() {
             //errors
 
             if (response.data.code === 200) {
-              localStorage.setItem("user-info", JSON.stringify(response.data));
+              localStorage.setItem("response-code", JSON.stringify(response.data));
+              localStorage.setItem("user-info", response.config.data);
               navigate("/passwords-table");
             console.log("logged in");
   
@@ -62,8 +63,9 @@ function LoginForm() {
           });
         // setEmail("");
         // setPassword("");
-        // setSuccess(true);
-      } catch (err) {}
+      } catch (error) {
+        console.log("check login error", error);
+      }
     
 
   };

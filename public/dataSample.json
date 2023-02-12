@@ -1,0 +1,26 @@
+[
+  {
+    "userId": 1,
+    "website": "rozetka.com",
+    "email": "john@gmail.com",
+    "pwd": "john1"
+  },
+  {
+    "userId": 2,
+    "website": "google.com",
+    "email": "johny@gmail.com",
+    "pwd": "johny1"
+  },
+  {
+    "userId": 3,
+    "website": "stackoverflow.com",
+    "email": "john777@yahoo.com",
+    "pwd": "john777"
+  },
+  {
+    "userId": 4,
+    "website": "blog.hubspot.com",
+    "email": "johnW@gmail.com",
+    "pwd": "johnW1"
+  }
+]
