@@ -1,87 +1,76 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import PasswordsTable from "./PasswordsTable";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-
-
-function LoginForm({Login, error}) {
-
-
-
-  const adminUser = {
-    email: "admin@admin.com",
-    password: "admin123"
-  }
-  
-  const [user, setUser] = useState({name: "", email: ""});
-  const [inputError,setError] = useState("");
+function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, seterrorMessage] = useState("");
   const navigate = useNavigate();
 
 
-  const LoginInfo = info => {
-    console.log(info);
+  useEffect(() => {
+    seterrorMessage("");
 
-    if (info.email == adminUser.email && info.password == adminUser.password) {
-      console.log("Logged in");
-      
+    //check if logged in
 
-      /* set route to passwords table if logged in */
-
+    if(localStorage.isLoggedIn == "true"){
+      console.log(localStorage.isLoggedIn);
       navigate("/passwords-table");
-
-    } else {
-      console.log("Details do not match");
-      setError("Details do not match");
     }
-  }
+  }, [email, password]);
 
-   /*local details*/
-
-   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
  
-   useEffect(() => {
-     if (localStorage.getItem("user-info")) {
-       navigate("/passwords-table")
-     }
-   })
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(email, password);
 
-  //  const [details, setDetails] = useState({email: "", password: ""});
+      try {
+        const response = await axios
+          .post("https://yarotbot.tk/login", {
+            email,
+            pwd: password,
+          })
+          .then(function (response) {
+            console.log(response);
+  
+            // getting email and pwd from response
 
-   async function submitHandler(e) 
-   {
-     e.preventDefault();
+            let userData = JSON.parse(response.config.data);
+  
+            //errors
 
-     console.log(email, password);
+            if (response.data.code === 200) {
+              localStorage.setItem("user-info", JSON.stringify(response.data));
+              navigate("/passwords-table");
+            console.log("logged in");
+  
+            } else if (!response) {
+              seterrorMessage("No server response");
+            } else if (userData.email.length === 0 || userData.pwd.length === 0) {
+              seterrorMessage("Missing username or password");
+            } else if (response.data.code === 403) {
+              seterrorMessage("Invalid password or login");
+            } else if (response.data.code === 500) {
+              seterrorMessage("Server error. Call 911");
+            }
+          });
+        // setEmail("");
+        // setPassword("");
+        // setSuccess(true);
+      } catch (err) {}
+    
 
-     let item = {email, password};
-     let result = await fetch ("https://yarotbot.tk/login", {
-      
-      method: "POST",
-      headers:{
-        "Content-Type" : "application/json",
-        "Accept" : "application/json"
-      },
-      body: JSON.stringify(item)
-      });
-      result = await result.json();
-      localStorage.setItem("user-info", JSON.stringify(result))
-      navigate("/passwords-table");
-
-  //  LoginInfo(details);
-    }
-
+  };
 
   //change auth mode
 
   const changeAuthMode = () => {
-
-    //! Change route when sign up form available from Dasha
-
     navigate("/register");
   };
 
@@ -96,7 +85,11 @@ function LoginForm({Login, error}) {
       </div>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={e =>setEmail(e.target.value)} />
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <Form.Text className="taext-muted">
           We'll never share your email with anyone else.
         </Form.Text>
@@ -104,13 +97,16 @@ function LoginForm({Login, error}) {
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={e =>setPassword(e.target.value)} />
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </Form.Group>
       <Form.Text className="taext-muted">
-        {(inputError != "") ? (<div className="inputError">{inputError}</div>) : ""}
+        <div className="errorMessage">{errorMessage}</div>
       </Form.Text>
-      
-      
+
       <Button variant="primary" type="submit">
         Log In
       </Button>
@@ -119,4 +115,3 @@ function LoginForm({Login, error}) {
 }
 
 export default LoginForm;
-
