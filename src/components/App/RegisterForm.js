@@ -14,8 +14,8 @@ function RegisterForm() {
 
 
   function sendNewUser() {
-    console.log(password, repeatedpassword);
-    if(password) {
+    if (email) {
+    if (password) {
     if (password == repeatedpassword) {
       axios.post('https://yarotbot.tk/register', {
         email,
@@ -49,8 +49,15 @@ function RegisterForm() {
     setPassword('')
     setrepeatedpassword('')
   }
+  } else {
+    seterrorMessage('Enter login')
   }
 
+
+  }
+
+
+  
   const changeAuthType = () => {
     navigate("/login");
   }
@@ -68,7 +75,7 @@ function RegisterForm() {
       <h4 className='text-center text-danger'>{errorMessage}</h4>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Login</Form.Label>
-        <Form.Control value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} type="email" placeholder="Enter login" />
+        <Form.Control value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} type="text" placeholder="Enter login" />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword" >
