@@ -13,11 +13,10 @@ function RegisterForm() {
   const navigate = useNavigate();
 
 
-
   function sendNewUser() {
-
+    console.log(password, repeatedpassword);
+    if(password) {
     if (password == repeatedpassword) {
-      console.log(email, password);
       axios.post('https://yarotbot.tk/register', {
         email,
         pwd: password
@@ -26,8 +25,13 @@ function RegisterForm() {
           console.log(response);
           if (response.data.code == 201) {
             navigate("/login");
+          } 
+          if (response.data.code == 402) {
+            seterrorMessage('User already exists')
+            setPassword('')
+            setrepeatedpassword('')
           } else {
-            seterrorMessage('Registation error')
+            seterrorMessage('Registration error')
             setPassword('')
             setrepeatedpassword('')
           }
@@ -35,29 +39,48 @@ function RegisterForm() {
         .catch(function (error) {
           console.log(error);
         });
+    } else {
+      seterrorMessage('Repeated password is not equal to password')
+      setPassword('')
+      setrepeatedpassword('')
     }
+  } else {
+    seterrorMessage('Enter the password')
+    setPassword('')
+    setrepeatedpassword('')
+  }
+  }
+
+  const changeAuthType = () => {
+    navigate("/login");
   }
 
 
   return (
     <Form className="form-container">
       <h3 className="text-center">Sign up</h3>
+      <div className="text-center padding-down">
+      Already have an account?{" "}
+        <span className="link-primary" onClick={changeAuthType}>
+          Log in here
+        </span>
+      </div>
       <h4 className='text-center text-danger'>{errorMessage}</h4>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} type="email" placeholder="Enter email" />
+        <Form.Label>Login</Form.Label>
+        <Form.Control value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} type="email" placeholder="Enter login" />
       </Form.Group>
 
-      <Form.Group className="mb-3" >
+      <Form.Group className="mb-3" controlId="formBasicPassword" >
         <Form.Label>Password</Form.Label>
         <Form.Control value={password} onChange={(ev) => setPassword(ev.currentTarget.value)} type="password" placeholder="Password" />
       </Form.Group>
-      <Form.Group className="mb-3">
+      <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Repeat Password</Form.Label>
         <Form.Control value={repeatedpassword} onChange={(ev) => setrepeatedpassword(ev.currentTarget.value)} type="password" placeholder=" Repeat Password" />
       </Form.Group>
       <Button variant="primary" type="button" onClick={sendNewUser}>
-        Submit
+        Sign Up
       </Button>
     </Form>
   );

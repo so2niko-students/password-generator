@@ -64,14 +64,18 @@ function PasswordGenerator() {
     
   }
 
+  const sendPassword = () => {
 
-
-
+  }
 
   return (
     <Form className="form-container">
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control type="text" placeholder="Enter name" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Control type="text" placeholder="Enter email" />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -99,11 +103,11 @@ function PasswordGenerator() {
         <Form.Check checked={upperCase} disabled={selectedChoices.length === 1 && selectedChoices.includes('uppercase')} onChange={() => { setUpperCase(!upperCase); handleCheckbox('uppercase');}} type="checkbox" label="Include uppercase letters" />
       </Form.Group>
           
-      <Button onClick={generatePassword} variant="primary" type="button">
+      <Button onClick={generatePassword}  variant="primary" type="button">
         Generate Password
       </Button>{' '}
 
-      <Button variant="success" type="button">
+      <Button onClick={sendPassword} variant="success" type="button">
         Save
       </Button>
         
