@@ -2,6 +2,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
+
+
+
 
 function PasswordGenerator() {
 
@@ -12,6 +16,10 @@ function PasswordGenerator() {
   const [symbols, setSymbols] = useState(true);
   const [passwordLength, setPasswordLength] = useState(8);
   const [selectedChoices, setSelectedChoices] = useState(['lowercase', 'uppercase', 'numbers', 'symbols']);
+  const [email, setEmail] = useState()
+  const [name, setName] = useState()
+  const [errorMessage, seterrorMessage] = useState('');
+  const navigate = useNavigate();
   
   const lowercaseList = 'abcdefghijklmnopqrstuvwxyz';
   const uppercaseList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -63,21 +71,46 @@ function PasswordGenerator() {
     setPassword(currentPassword);
     
   }
-
+  
   const sendPassword = () => {
-
+    if(name) {
+    axios.post('https://yarotbot.tk/postData', {
+      name,
+      email,
+      pwd: password
+    })
+      .then(function (response) {
+        console.log(response);
+        if (response.data.code == 201) {
+          navigate("/passwords-table");
+        } 
+        if (response.data.code == 403) {
+        // not loggined + nagigate to
+          seterrorMessage('You are not logined')
+          navigate("/login");
+        } else {
+          seterrorMessage('Error. Try again later')
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    } else {
+      seterrorMessage('Enter the name')
+    }
   }
 
   return (
     <Form className="form-container">
+      <h4 className='text-center text-danger'>{errorMessage}</h4>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Control type="text" placeholder="Enter name" />
+        <Form.Control onChange={(ev) => setName(ev.currentTarget.value)} type="text" placeholder="Enter name" />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Control type="text" placeholder="Enter email" />
+        <Form.Control onChange={(ev) => setEmail(ev.currentTarget.value)} type="text" placeholder="Enter email" />
       </Form.Group>
-
+      <span>Generated password</span>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control value={password} disabled type="text" placeholder="Generated password" />
       </Form.Group>
