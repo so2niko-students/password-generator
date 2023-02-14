@@ -13,61 +13,60 @@ function LoginForm() {
   const [errorMessage, seterrorMessage] = useState("");
   const navigate = useNavigate();
 
-
   useEffect(() => {
     seterrorMessage("");
 
-    //check if logged in
+    //!check if logged in --- to rewrite using data.code
 
-    if(localStorage.isLoggedIn == "true"){
+    if (localStorage.isLoggedIn == "true") {
       console.log(localStorage.isLoggedIn);
       navigate("/passwords-table");
     }
   }, [email, password]);
 
- 
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log(email, password);
 
-      try {
-        const response = await axios
-          .post("https://yarotbot.tk/login", {
-            email,
-            pwd: password,
-          })
-          .then(function (response) {
-            console.log(response);
-  
-            // getting email and pwd from response
+    try {
+      const response = await axios
+        .post("https://yarotbot.tk/login", {
+          email,
+          pwd: password,
+        })
+        .then(function (response) {
+          console.log(response);
 
-            let userData = JSON.parse(response.config.data);
-  
-            //errors
+          // getting email and pwd from response
 
-            if (response.data.code === 200) {
-              localStorage.setItem("response-code", JSON.stringify(response.data));
-              localStorage.setItem("user-info", response.config.data);
-              navigate("/passwords-table");
+          let userData = JSON.parse(response.config.data);
+
+          //errors
+
+          if (response.data.code === 200) {
+            localStorage.setItem(
+              "response-code",
+              JSON.stringify(response.data)
+            );
+            localStorage.setItem("user-info", response.config.data);
+            localStorage.setItem("isLoggedIn", true);
+            navigate("/passwords-table");
             console.log("logged in");
-  
-            } else if (!response) {
-              seterrorMessage("No server response");
-            } else if (userData.email.length === 0 || userData.pwd.length === 0) {
-              seterrorMessage("Missing username or password");
-            } else if (response.data.code === 403) {
-              seterrorMessage("Invalid password or login");
-            } else if (response.data.code === 500) {
-              seterrorMessage("Server error. Call 911");
-            }
-          });
-        // setEmail("");
-        // setPassword("");
-      } catch (error) {
-        console.log("check login error", error);
-      }
-    
-
+          } else if (!response) {
+            seterrorMessage("No server response");
+          } else if (userData.email.length === 0 || userData.pwd.length === 0) {
+            seterrorMessage("Missing username or password");
+          } else if (response.data.code === 403) {
+            seterrorMessage("Invalid password or login");
+          } else if (response.data.code === 500) {
+            seterrorMessage("Server error. Call 911");
+          }
+        });
+      // setEmail("");
+      // setPassword("");
+    } catch (error) {
+      console.log("check login error", error);
+    }
   };
 
   //change auth mode

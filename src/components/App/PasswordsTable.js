@@ -8,7 +8,13 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 
 function PasswordsTable() {
-  window.localStorage.setItem("isLoggedIn", true);
+
+  //!check if logged in --- to rewrite using data.code
+
+  // window.localStorage.setItem("isLoggedIn", true);
+  
+
+
   const [userFulldata, setUserFullData] = useState([]);
   const [allUserData, setAllUserData] = useState("");
   const navigate = useNavigate();
@@ -24,9 +30,8 @@ function PasswordsTable() {
 
       .then(function (response) {
         let responseData = response.data;
-       setUserFullData(responseData);
+        setUserFullData(responseData);
         console.log(userFulldata);
-        
       });
   };
 
@@ -48,7 +53,10 @@ function PasswordsTable() {
     <div>
       <div className="table-container">
         <div className="passwords-table-header">
-          <h4> Hello, <span className="userName">{userData.email}</span>!</h4>
+          <h4>
+            {" "}
+            Hello, <span className="userName">{userData.email}</span>!
+          </h4>
           <Button variant="primary" type="button" onClick={switchToGeneratePwd}>
             Add new entry
           </Button>
@@ -65,15 +73,15 @@ function PasswordsTable() {
           </thead>
           <tbody>
             {userFulldata.map((user) => {
-         return(
-            <tr key={user.userId}>
-              <td>{user.userId}</td>
-              <td>{user.website}</td>
-              <td>{user.email}</td>
-              <td>{user.pwd}</td>
-            </tr>)
-          
-        })}
+              return (
+                <tr key={user.userId}>
+                  <td>{user.userId}</td>
+                  <td>{user.website}</td>
+                  <td>{user.email}</td>
+                  <td>{user.pwd}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
       </div>
