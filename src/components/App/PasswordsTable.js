@@ -8,30 +8,39 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 
 function PasswordsTable() {
-
-  //!check if logged in --- to rewrite using data.code
-
-  // window.localStorage.setItem("isLoggedIn", true);
-  
-
-
   const [userFulldata, setUserFullData] = useState([]);
   const [allUserData, setAllUserData] = useState("");
   const navigate = useNavigate();
+  const [userData, setUserData] = useState([]);
 
-  const userData = JSON.parse(localStorage.getItem("user-info"));
+  
+
+  //!check if logged in --- to rewrite using data.code
+
+
+  useEffect(() => {
+    if (localStorage.isLoggedIn !== "true") {
+      navigate("/login");
+      console.log(localStorage.isLoggedIn);
+    } else {
+      let userDataName = JSON.parse(localStorage.getItem("user-info"));
+      setUserData(userDataName);
+    }
+    
+  }, []);
 
   //retrieve user data from json
 
   const retrieveUserData = async () => {
     const response = await axios
-      .get("dataSample.json")
+      // .get("dataSample.json")
+      .get("https://yarotbot.tk/getData")
       // return response.data;
 
       .then(function (response) {
         let responseData = response.data;
         setUserFullData(responseData);
-        console.log(userFulldata);
+        // console.log(userFulldata);
       });
   };
 
