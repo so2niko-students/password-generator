@@ -4,9 +4,10 @@ import { useEffect } from "react";
 function Test() {
     const navigate = useNavigate();
     useEffect(()=>{
-        navigate("/login");
+        console.log('test')
+        setTimeout(navigate("/login"), 1000);
     });
-    return ('');
+    return ('test');
 }
 
 export default Test;

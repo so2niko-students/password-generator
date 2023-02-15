@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './components/App/App';
-import Test from './components/Test/Test';
 import RegisterForm from './components/App/RegisterForm';
+import LoginForm from './components/App/LoginForm';
 
 
 import {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <div>
-        <Test/>
+        <App/>
       </div>
     ),
   },
@@ -28,15 +28,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: (
       <div>
-        <App />
-      </div>
-    ),
-  },
-  {
-    path: "/test",
-    element: (
-      <div>
-        <PasswordsTable/>
+        <LoginForm />
       </div>
     ),
   },

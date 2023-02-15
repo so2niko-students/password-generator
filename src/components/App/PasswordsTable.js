@@ -83,9 +83,9 @@ function PasswordsTable() {
           <tbody>
             {userFulldata.map((user) => {
               return (
-                <tr key={user.userId}>
-                  <td>{user.userId}</td>
-                  <td>{user.website}</td>
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.pwd}</td>
                 </tr>
