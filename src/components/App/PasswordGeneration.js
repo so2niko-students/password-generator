@@ -96,15 +96,19 @@ function PasswordGenerator() {
         console.log(error);
       });
     } else {
-      seterrorMessage('Enter the name')
+      seterrorMessage('Enter the website name')
     }
+  }
+
+  const cancel = () => {
+    navigate("/passwords-table");
   }
 
   return (
     <Form className="form-container">
       <h4 className='text-center text-danger'>{errorMessage}</h4>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Control onChange={(ev) => setName(ev.currentTarget.value)} type="text" placeholder="Enter name" />
+        <Form.Control onChange={(ev) => setName(ev.currentTarget.value)} type="text" placeholder="Enter the website name" />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -142,6 +146,10 @@ function PasswordGenerator() {
 
       <Button onClick={sendPassword} variant="success" type="button">
         Save
+      </Button>{' '}
+
+      <Button onClick={cancel} variant="secondary" type="button">
+        Cancel
       </Button>
         
     </Form>

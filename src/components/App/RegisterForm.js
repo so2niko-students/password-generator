@@ -45,7 +45,7 @@ function RegisterForm() {
       setrepeatedpassword('')
     }
   } else {
-    seterrorMessage('Enter the password')
+    seterrorMessage('Enter password')
     setPassword('')
     setrepeatedpassword('')
   }
@@ -80,11 +80,11 @@ function RegisterForm() {
 
       <Form.Group className="mb-3" controlId="formBasicPassword" >
         <Form.Label>Password</Form.Label>
-        <Form.Control value={password} onChange={(ev) => setPassword(ev.currentTarget.value)} type="password" placeholder="Password" />
+        <Form.Control value={password} onChange={(ev) => setPassword(ev.currentTarget.value)} type="password" placeholder="Enter password" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Repeat Password</Form.Label>
-        <Form.Control value={repeatedpassword} onChange={(ev) => setrepeatedpassword(ev.currentTarget.value)} type="password" placeholder=" Repeat Password" />
+        <Form.Control value={repeatedpassword} onChange={(ev) => setrepeatedpassword(ev.currentTarget.value)} type="password" placeholder="Repeat Password" />
       </Form.Group>
       <Button variant="primary" type="button" onClick={sendNewUser}>
         Sign Up
