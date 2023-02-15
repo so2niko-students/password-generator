@@ -53,15 +53,11 @@ function RegisterForm() {
     seterrorMessage('Enter login')
   }
 
-
   }
 
-
-  
   const changeAuthType = () => {
     navigate("/login");
   }
-
 
   return (
     <Form className="form-container">
