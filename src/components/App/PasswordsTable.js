@@ -13,10 +13,7 @@ function PasswordsTable() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
 
-  
-
-  //!check if logged in --- to rewrite using data.code
-
+  //check if logged in
 
   useEffect(() => {
     if (localStorage.isLoggedIn !== "true") {
@@ -26,7 +23,6 @@ function PasswordsTable() {
       let userDataName = JSON.parse(localStorage.getItem("user-info"));
       setUserData(userDataName);
     }
-    
   }, []);
 
   //retrieve user data from json
@@ -58,6 +54,11 @@ function PasswordsTable() {
     navigate("/newpassword");
   };
 
+  const logOut = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <div>
       <div className="table-container">
@@ -66,9 +67,18 @@ function PasswordsTable() {
             {" "}
             Hello, <span className="userName">{userData.email}</span>!
           </h4>
-          <Button variant="primary" type="button" onClick={switchToGeneratePwd}>
-            Add new entry
-          </Button>
+          <div className="bttn-group">
+            <Button
+              variant="primary"
+              type="button"
+              onClick={switchToGeneratePwd}
+            >
+              Add new entry
+            </Button>
+            <Button variant="secondary" type="button" onClick={logOut}>
+              Log Out
+            </Button>
+          </div>
         </div>
 
         <Table striped bordered hover size="sm">
